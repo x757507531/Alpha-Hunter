@@ -1,0 +1,5 @@
+{
+  "name": "AlphaHunter - Binance Monitor",
+  "description": "Real-time Binance market monitor that detects sudden price surges (Alpha) and provides AI-powered analysis using Gemini.",
+  "requestFramePermissions": []
+}
