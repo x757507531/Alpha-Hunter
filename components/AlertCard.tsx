@@ -43,8 +43,32 @@ export const AlertCard: React.FC<AlertCardProps> = ({ alert }) => {
           <div className={`px-2 py-1 rounded text-xs font-bold uppercase ${isGreen ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'}`}>
             {isGreen ? 'Pump' : 'Dump'}
           </div>
+          
+          {/* Trading Status Badge */}
+          {alert.tradeStatus && (
+             <div className={`text-[10px] px-2 py-0.5 rounded border ${
+                alert.tradeStatus === 'EXECUTED' ? 'border-green-500 text-green-500' :
+                alert.tradeStatus === 'SIMULATED' ? 'border-blue-500 text-blue-500' :
+                alert.tradeStatus === 'FAILED' ? 'border-red-500 text-red-500' : 'hidden'
+             }`}>
+               {alert.tradeStatus === 'EXECUTED' ? 'LONG OPENED' : 
+                alert.tradeStatus === 'SIMULATED' ? 'SIMULATED TRADE' : 'TRADE FAILED'}
+             </div>
+          )}
         </div>
       </div>
+
+      {alert.tradeMessage && alert.tradeStatus === 'FAILED' && (
+        <div className="mt-2 p-2 bg-red-900/20 rounded text-xs text-red-300">
+          Error: {alert.tradeMessage}
+        </div>
+      )}
+      
+      {alert.tradeMessage && alert.tradeStatus !== 'FAILED' && alert.tradeStatus !== 'NONE' && (
+         <div className="mt-2 p-2 bg-green-900/10 rounded text-xs text-gray-400 font-mono">
+           &gt; {alert.tradeMessage}
+         </div>
+      )}
 
       {/* Gemini Analysis Section */}
       <div className="mt-4 pt-3 border-t border-gray-800">

@@ -27,6 +27,33 @@ export interface AlertConfig {
   minVolumeUSDT: number;
 }
 
+export interface TradingConfig {
+  enabled: boolean;
+  simulationMode: boolean;
+  apiKey: string;
+  apiSecret: string;
+  initialBalance: number; // Total Principal
+  leverage: number;
+  positionSizeUSDT: number; // Notional Value per trade
+  takeProfitPercent: number;
+  stopLossPercent: number;
+  cooldownHours: number;
+}
+
+export interface TradeRecord {
+  id: string;
+  symbol: string;
+  entryPrice: number;
+  amountUSDT: number; // Notional Size
+  leverage: number;
+  pnl: number; // Realized or Unrealized PnL
+  roi: number; // %
+  status: 'OPEN' | 'WON' | 'LOST';
+  timestamp: number;
+  closePrice?: number;
+  closeTime?: number;
+}
+
 export interface AlertEvent {
   id: string;
   symbol: string;
@@ -36,6 +63,8 @@ export interface AlertEvent {
   percentageChange: number;
   volume: number;
   isPositive: boolean;
+  tradeStatus?: 'NONE' | 'EXECUTED' | 'FAILED' | 'SIMULATED';
+  tradeMessage?: string;
 }
 
 export enum AnalysisStatus {
